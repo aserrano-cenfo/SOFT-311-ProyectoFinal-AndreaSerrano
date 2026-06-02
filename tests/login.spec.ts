@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
 
@@ -16,9 +16,11 @@ test('TC006 - Redirección correcta después del inicio de sesión', async ({ pa
     'Testing123!'
   );
 
-  await page.waitForTimeout(3000);
-
   await login.validarLoginExitoso();
+
+  await expect(page).toHaveURL(
+    'https://storedemo.testdino.com/'
+  );
 
   await login.tomarScreenshot(
     'TC006_LoginExitoso'

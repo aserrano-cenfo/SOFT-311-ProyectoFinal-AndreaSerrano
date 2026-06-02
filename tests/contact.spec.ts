@@ -67,7 +67,7 @@ test('TC013 - Mensaje menor a 10 caracteres', async ({ page }) => {
         'Andrea',
         'Serrano',
         'Consulta',
-        'Hola'
+        '12345'
     );
 
     await contact.enviarMensaje();

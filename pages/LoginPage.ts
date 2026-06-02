@@ -48,36 +48,20 @@ export class LoginPage extends BasePage {
 
     }
 
-    async crearCuentaVacia() {
-
-        await this.page.getByRole(
-            'button',
-            { name: 'Create Account' }
-        ).click();
-
-    }
-
-    async validarFirstNameRequerido() {
-
-        await expect(
-            this.page.getByText(
-                'First Name is required'
-            )
-        ).toBeVisible();
-
-    }
-
     async validarLoginExitoso() {
 
-        const mensaje = this.page.getByText(
-            'Logged in successfully'
+        const mensaje = this.page.locator(
+            '[role="status"]'
         );
 
         await expect(
             mensaje
-        ).toBeVisible({
-            timeout: 10000
-        });
+        ).toContainText(
+            'Logged in successfully',
+            {
+                timeout: 3000
+            }
+        );
 
     }
 
