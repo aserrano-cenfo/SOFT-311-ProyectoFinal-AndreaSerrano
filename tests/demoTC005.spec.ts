@@ -38,7 +38,7 @@ test('DEMO TC005 - Comparación entre listado y detalle', async ({ page }) => {
   await page.pause();
 
   await products.tomarScreenshot(
-    'TC005_DetalleProducto'
+    'DEMO_TC005_DetalleProducto'
   );
 
 });
