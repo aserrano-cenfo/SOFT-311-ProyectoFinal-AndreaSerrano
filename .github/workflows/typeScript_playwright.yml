@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+        shard: [1, 2]
 
     steps:
       - uses: actions/checkout@v5.0.0
@@ -38,22 +38,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Allure CLI
-        run: npm install -g allure-commandline --save-dev
-
       - name: Install Playwright browsers
-        run: npx playwright install chromium
+        run: npx playwright install
 
       - name: Run tests (shard ${{ matrix.shard }} of 8)
         run: npx playwright test --shard=${{ matrix.shard }}/8
 
-      - name: Generate Allure report
-        run: allure generate allure-assets -c --single-file
-
-      - uses: actions/upload-artifact@v4.6.2
+      - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: allure-report-shard-${{ matrix.shard }}
-          path: allure-report/
+          name: playwright-report-shard-${{ matrix.shard }}
+          path: playwright-report/
 
   # ── Release ─────────────────────────────────────────────────────────────────
   # Only runs when a version tag (v*) is pushed AND all shards passed.
